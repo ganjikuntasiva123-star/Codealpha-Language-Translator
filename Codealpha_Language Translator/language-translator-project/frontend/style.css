@@ -1,0 +1,558 @@
+:root {
+  --bg: #100b09;
+  --iron: #171615;
+  --iron-light: #24211e;
+  --steel: #2f3438;
+  --steel-line: rgba(213, 191, 158, 0.22);
+  --text: #fff8ed;
+  --muted: #c7b9a4;
+  --ember: #ff7a1a;
+  --ember-hot: #ffd166;
+  --coal: #080706;
+  --danger: #ff624f;
+  --shadow: 0 32px 90px rgba(0, 0, 0, 0.58);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 50% 105%, rgba(255, 91, 18, 0.44), transparent 30rem),
+    radial-gradient(circle at 0% 20%, rgba(255, 160, 44, 0.16), transparent 28rem),
+    linear-gradient(145deg, #070504 0%, #15100d 46%, #211a15 100%);
+}
+
+body::before,
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  content: "";
+  pointer-events: none;
+}
+
+body::before {
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.86), transparent 80%);
+}
+
+body::after {
+  background:
+    linear-gradient(120deg, transparent 0 42%, rgba(255, 209, 102, 0.08) 43%, transparent 44% 100%),
+    repeating-linear-gradient(15deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 16px);
+  mix-blend-mode: screen;
+  opacity: 0.42;
+}
+
+button,
+select,
+textarea {
+  font: inherit;
+}
+
+.motion-scene {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.furnace-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -24rem;
+  width: 70rem;
+  height: 42rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255, 209, 102, 0.72) 0 8%, rgba(255, 122, 26, 0.5) 22%, rgba(112, 31, 13, 0.22) 48%, transparent 72%);
+  filter: blur(20px);
+  transform: translateX(-50%);
+  animation: furnaceBreath 4s ease-in-out infinite;
+}
+
+.heat-wave {
+  position: absolute;
+  bottom: 8%;
+  width: 15rem;
+  height: 36rem;
+  border-radius: 50%;
+  background: linear-gradient(to top, rgba(255, 209, 102, 0.2), transparent);
+  filter: blur(18px);
+  opacity: 0.58;
+  animation: riseHeat 5s ease-in-out infinite;
+}
+
+.heat-one {
+  left: 14%;
+}
+
+.heat-two {
+  left: 46%;
+  animation-delay: 1.2s;
+  animation-duration: 6s;
+}
+
+.heat-three {
+  right: 12%;
+  animation-delay: 2.1s;
+}
+
+.spark {
+  position: absolute;
+  width: 9rem;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--ember-hot), var(--ember), transparent);
+  filter: drop-shadow(0 0 9px rgba(255, 122, 26, 0.78));
+  opacity: 0.82;
+  animation: streak 5.8s linear infinite;
+}
+
+.spark-a {
+  top: 20%;
+  left: -12rem;
+}
+
+.spark-b {
+  top: 44%;
+  left: -18rem;
+  animation-delay: 1.4s;
+  animation-duration: 7s;
+}
+
+.spark-c {
+  top: 68%;
+  left: -14rem;
+  animation-delay: 2.8s;
+}
+
+.spark-d {
+  top: 84%;
+  left: -20rem;
+  animation-delay: 4s;
+  animation-duration: 8s;
+}
+
+.coal,
+.steel-line {
+  position: absolute;
+  bottom: 0;
+  display: block;
+}
+
+.coal {
+  width: 16rem;
+  height: 5rem;
+  border-radius: 55% 45% 0 0;
+  background:
+    radial-gradient(circle at 42% 30%, rgba(255, 104, 24, 0.44), transparent 16%),
+    linear-gradient(180deg, #211712, #070504);
+  box-shadow: inset 0 10px 22px rgba(255, 151, 35, 0.12);
+}
+
+.coal-a {
+  left: 5%;
+}
+
+.coal-b {
+  left: 42%;
+  width: 20rem;
+  height: 6rem;
+}
+
+.coal-c {
+  right: 7%;
+}
+
+.steel-line {
+  height: 2px;
+  width: 38vw;
+  background: linear-gradient(90deg, transparent, rgba(213, 191, 158, 0.35), transparent);
+  transform: rotate(-8deg);
+}
+
+.steel-a {
+  top: 18%;
+  left: 4%;
+}
+
+.steel-b {
+  right: 0;
+  top: 72%;
+  transform: rotate(10deg);
+}
+
+.app-shell {
+  width: min(1220px, 100%);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 34px 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.translator {
+  border: 1px solid var(--steel-line);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 237, 0.075), rgba(255, 248, 237, 0.025)),
+    rgba(18, 15, 13, 0.9);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--ember-hot);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+h1,
+h2 {
+  margin: 0;
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4.4rem, 10vw, 8.6rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  text-shadow:
+    0 2px 0 #5b2d12,
+    0 8px 24px rgba(0, 0, 0, 0.52),
+    0 0 30px rgba(255, 122, 26, 0.34);
+}
+
+h2 {
+  font-size: clamp(1.9rem, 3vw, 3rem);
+}
+
+
+
+.translator {
+  width: 100%;
+  padding: 26px;
+  border-radius: 18px;
+}
+
+.title-row,
+.language-row,
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.title-row {
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.status-pill {
+  flex: 0 0 auto;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 209, 102, 0.34);
+  border-radius: 999px;
+  color: var(--ember-hot);
+  background: rgba(255, 122, 26, 0.1);
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.message {
+  display: none;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 98, 79, 0.42);
+  border-radius: 10px;
+  color: var(--text);
+  background: rgba(255, 98, 79, 0.13);
+}
+
+.message.success {
+  border-color: rgba(255, 209, 102, 0.38);
+  background: rgba(255, 122, 26, 0.12);
+}
+
+.language-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  margin-bottom: 18px;
+}
+
+.field,
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.field > span,
+.panel-heading {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+#charCount,
+#outputBadge {
+  color: var(--ember-hot);
+}
+
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--steel-line);
+  border-radius: 10px;
+  color: var(--text);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 237, 0.07), rgba(255, 248, 237, 0.02)),
+    var(--iron-light);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+select {
+  min-height: 54px;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+textarea {
+  min-height: 292px;
+  padding: 16px;
+  resize: vertical;
+  line-height: 1.65;
+}
+
+select:focus,
+textarea:focus {
+  border-color: rgba(255, 209, 102, 0.72);
+  box-shadow: 0 0 0 4px rgba(255, 122, 26, 0.18);
+}
+
+textarea:not(:placeholder-shown) {
+  border-color: rgba(255, 122, 26, 0.44);
+}
+
+.text-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.icon-button,
+.primary-button,
+.secondary-button {
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.icon-button {
+  width: 58px;
+  height: 50px;
+  align-self: end;
+  color: var(--ember-hot);
+  background: var(--iron-light);
+  border: 1px solid var(--steel-line);
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.icon-button:hover,
+.secondary-button:hover {
+  border-color: rgba(255, 209, 102, 0.48);
+  background: #31251d;
+  transform: translateY(-2px);
+}
+
+.actions {
+  justify-content: flex-end;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.primary-button,
+.secondary-button {
+  min-height: 52px;
+  padding: 0 20px;
+  color: var(--text);
+  font-weight: 950;
+}
+
+.primary-button {
+  min-width: 190px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #190c05;
+  background: linear-gradient(135deg, #ff6418, #ffd166 58%, #ff8f22);
+  box-shadow: 0 16px 36px rgba(255, 91, 18, 0.28);
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.12);
+}
+
+.secondary-button {
+  background: var(--iron-light);
+  border: 1px solid var(--steel-line);
+}
+
+.primary-button:disabled,
+.secondary-button:disabled,
+.icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
+}
+
+.loader {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(25, 12, 5, 0.3);
+  border-top-color: #190c05;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.is-loading .loader {
+  display: inline-block;
+}
+
+.pulse-output {
+  animation: outputPulse 0.7s ease;
+}
+
+@keyframes furnaceBreath {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: translateX(-50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.06);
+  }
+}
+
+@keyframes riseHeat {
+  0%,
+  100% {
+    transform: translateY(0) skewX(-5deg);
+  }
+
+  50% {
+    transform: translateY(-18px) skewX(5deg);
+  }
+}
+
+@keyframes streak {
+  to {
+    transform: translateX(calc(100vw + 24rem)) translateY(5rem);
+  }
+}
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes outputPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 122, 26, 0.35);
+  }
+
+  100% {
+    box-shadow: 0 0 0 16px rgba(255, 122, 26, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .app-shell {
+    padding: 20px 14px;
+  }
+}
+
+@media (max-width: 720px) {
+  .translator {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .title-row,
+  .language-row,
+  .text-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .title-row {
+    display: grid;
+  }
+
+  .status-pill {
+    width: fit-content;
+  }
+
+  .icon-button {
+    justify-self: center;
+    align-self: center;
+  }
+
+  textarea {
+    min-height: 210px;
+  }
+
+  .actions {
+    align-items: stretch;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+  }
+}

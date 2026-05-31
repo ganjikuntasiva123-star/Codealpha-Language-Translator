@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Forge</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="motion-scene" aria-hidden="true">
+      <span class="furnace-glow"></span>
+      <span class="heat-wave heat-one"></span>
+      <span class="heat-wave heat-two"></span>
+      <span class="heat-wave heat-three"></span>
+      <span class="spark spark-a"></span>
+      <span class="spark spark-b"></span>
+      <span class="spark spark-c"></span>
+      <span class="spark spark-d"></span>
+      <span class="coal coal-a"></span>
+      <span class="coal coal-b"></span>
+      <span class="coal coal-c"></span>
+      <span class="steel-line steel-a"></span>
+      <span class="steel-line steel-b"></span>
+    </div>
+
+    <main class="app-shell">
+      <section class="translator">
+        <div class="title-row">
+          <div>
+            <p class="eyebrow">Forge bench</p>
+            <h2 id="translator-title">Translate text</h2>
+          </div>
+          <span class="status-pill">120+ languages</span>
+        </div>
+
+        <div id="message" class="message" role="alert" aria-live="polite"></div>
+
+        <div class="language-row">
+          <label class="field">
+            <span>From</span>
+            <select id="sourceLanguage"></select>
+          </label>
+
+          <button id="swapButton" class="icon-button" type="button" title="Swap languages">
+            Swap
+          </button>
+
+          <label class="field">
+            <span>To</span>
+            <select id="targetLanguage"></select>
+          </label>
+        </div>
+
+        <div class="text-grid">
+          <label class="panel">
+            <span class="panel-heading">
+              <span>Raw text</span>
+              <span id="charCount">0 / 5000</span>
+            </span>
+            <textarea
+              id="inputText"
+              placeholder="Drop raw text onto the forge..."
+              maxlength="5000"
+            ></textarea>
+          </label>
+
+          <label class="panel">
+            <span class="panel-heading">
+              <span>Forged translation</span>
+              <span id="outputBadge">Ready</span>
+            </span>
+            <textarea
+              id="outputText"
+              placeholder="Your finished translation will cool here..."
+              readonly
+            ></textarea>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button id="translateButton" class="primary-button" type="button">
+            <span class="button-text">Forge translation</span>
+            <span class="loader" aria-hidden="true"></span>
+          </button>
+          <button id="copyButton" class="secondary-button" type="button">Copy result</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
