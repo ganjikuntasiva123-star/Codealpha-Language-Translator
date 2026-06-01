@@ -1,138 +1,17 @@
 const languages = [
   { code: "auto", name: "Auto Detect" },
-  { code: "af", name: "Afrikaans" },
-  { code: "sq", name: "Albanian" },
-  { code: "am", name: "Amharic" },
-  { code: "ar", name: "Arabic" },
-  { code: "hy", name: "Armenian" },
-  { code: "as", name: "Assamese" },
-  { code: "ay", name: "Aymara" },
-  { code: "az", name: "Azerbaijani" },
-  { code: "bm", name: "Bambara" },
-  { code: "eu", name: "Basque" },
-  { code: "be", name: "Belarusian" },
-  { code: "bn", name: "Bengali" },
-  { code: "bho", name: "Bhojpuri" },
-  { code: "bs", name: "Bosnian" },
-  { code: "bg", name: "Bulgarian" },
-  { code: "ca", name: "Catalan" },
-  { code: "ceb", name: "Cebuano" },
-  { code: "zh-CN", name: "Chinese (Simplified)" },
-  { code: "zh-TW", name: "Chinese (Traditional)" },
-  { code: "co", name: "Corsican" },
-  { code: "hr", name: "Croatian" },
-  { code: "cs", name: "Czech" },
-  { code: "da", name: "Danish" },
-  { code: "dv", name: "Dhivehi" },
-  { code: "doi", name: "Dogri" },
-  { code: "nl", name: "Dutch" },
   { code: "en", name: "English" },
-  { code: "eo", name: "Esperanto" },
-  { code: "et", name: "Estonian" },
-  { code: "ee", name: "Ewe" },
-  { code: "fil", name: "Filipino" },
-  { code: "fi", name: "Finnish" },
-  { code: "fr", name: "French" },
-  { code: "fy", name: "Frisian" },
-  { code: "gl", name: "Galician" },
-  { code: "ka", name: "Georgian" },
-  { code: "de", name: "German" },
-  { code: "el", name: "Greek" },
-  { code: "gn", name: "Guarani" },
-  { code: "gu", name: "Gujarati" },
-  { code: "ht", name: "Haitian Creole" },
-  { code: "ha", name: "Hausa" },
-  { code: "haw", name: "Hawaiian" },
-  { code: "he", name: "Hebrew" },
-  { code: "hi", name: "Hindi" },
-  { code: "hmn", name: "Hmong" },
-  { code: "hu", name: "Hungarian" },
-  { code: "is", name: "Icelandic" },
-  { code: "ig", name: "Igbo" },
-  { code: "ilo", name: "Ilocano" },
-  { code: "id", name: "Indonesian" },
-  { code: "ga", name: "Irish" },
-  { code: "it", name: "Italian" },
-  { code: "ja", name: "Japanese" },
-  { code: "jv", name: "Javanese" },
-  { code: "kn", name: "Kannada" },
-  { code: "kk", name: "Kazakh" },
-  { code: "km", name: "Khmer" },
-  { code: "rw", name: "Kinyarwanda" },
-  { code: "gom", name: "Konkani" },
-  { code: "ko", name: "Korean" },
-  { code: "kri", name: "Krio" },
-  { code: "ku", name: "Kurdish (Kurmanji)" },
-  { code: "ckb", name: "Kurdish (Sorani)" },
-  { code: "ky", name: "Kyrgyz" },
-  { code: "lo", name: "Lao" },
-  { code: "la", name: "Latin" },
-  { code: "lv", name: "Latvian" },
-  { code: "ln", name: "Lingala" },
-  { code: "lt", name: "Lithuanian" },
-  { code: "lg", name: "Luganda" },
-  { code: "lb", name: "Luxembourgish" },
-  { code: "mk", name: "Macedonian" },
-  { code: "mai", name: "Maithili" },
-  { code: "mg", name: "Malagasy" },
-  { code: "ms", name: "Malay" },
-  { code: "ml", name: "Malayalam" },
-  { code: "mt", name: "Maltese" },
-  { code: "mi", name: "Maori" },
-  { code: "mr", name: "Marathi" },
-  { code: "mni-Mtei", name: "Meiteilon (Manipuri)" },
-  { code: "lus", name: "Mizo" },
-  { code: "mn", name: "Mongolian" },
-  { code: "my", name: "Myanmar (Burmese)" },
-  { code: "ne", name: "Nepali" },
-  { code: "no", name: "Norwegian" },
-  { code: "ny", name: "Nyanja" },
-  { code: "or", name: "Odia" },
-  { code: "om", name: "Oromo" },
-  { code: "ps", name: "Pashto" },
-  { code: "fa", name: "Persian" },
-  { code: "pl", name: "Polish" },
-  { code: "pt", name: "Portuguese" },
-  { code: "pa", name: "Punjabi" },
-  { code: "qu", name: "Quechua" },
-  { code: "ro", name: "Romanian" },
-  { code: "ru", name: "Russian" },
-  { code: "sm", name: "Samoan" },
-  { code: "sa", name: "Sanskrit" },
-  { code: "gd", name: "Scots Gaelic" },
-  { code: "nso", name: "Sepedi" },
-  { code: "sr", name: "Serbian" },
-  { code: "st", name: "Sesotho" },
-  { code: "sn", name: "Shona" },
-  { code: "sd", name: "Sindhi" },
-  { code: "si", name: "Sinhala" },
-  { code: "sk", name: "Slovak" },
-  { code: "sl", name: "Slovenian" },
-  { code: "so", name: "Somali" },
-  { code: "es", name: "Spanish" },
-  { code: "su", name: "Sundanese" },
-  { code: "sw", name: "Swahili" },
-  { code: "sv", name: "Swedish" },
-  { code: "tg", name: "Tajik" },
-  { code: "ta", name: "Tamil" },
-  { code: "tt", name: "Tatar" },
   { code: "te", name: "Telugu" },
-  { code: "th", name: "Thai" },
-  { code: "ti", name: "Tigrinya" },
-  { code: "ts", name: "Tsonga" },
-  { code: "tr", name: "Turkish" },
-  { code: "tk", name: "Turkmen" },
-  { code: "ak", name: "Twi" },
-  { code: "uk", name: "Ukrainian" },
-  { code: "ur", name: "Urdu" },
-  { code: "ug", name: "Uyghur" },
-  { code: "uz", name: "Uzbek" },
-  { code: "vi", name: "Vietnamese" },
-  { code: "cy", name: "Welsh" },
-  { code: "xh", name: "Xhosa" },
-  { code: "yi", name: "Yiddish" },
-  { code: "yo", name: "Yoruba" },
-  { code: "zu", name: "Zulu" }
+  { code: "hi", name: "Hindi" },
+  { code: "ta", name: "Tamil" },
+  { code: "ml", name: "Malayalam" },
+  { code: "kn", name: "Kannada" },
+  { code: "fr", name: "French" },
+  { code: "de", name: "German" },
+  { code: "es", name: "Spanish" },
+  { code: "ja", name: "Japanese" },
+  { code: "ko", name: "Korean" },
+  { code: "zh-CN", name: "Chinese" }
 ];
 
 const sourceLanguage = document.getElementById("sourceLanguage");
@@ -145,158 +24,179 @@ const swapButton = document.getElementById("swapButton");
 const message = document.getElementById("message");
 const charCount = document.getElementById("charCount");
 const outputBadge = document.getElementById("outputBadge");
+
+/* UPDATED BACKEND URL */
+
 const apiBaseUrl =
-  window.location.protocol === "file:" ||
-  !/^https?:\/\/(localhost|127\.0\.0\.1)(:5050)?\//.test(window.location.href)
-    ? "http://localhost:5050"
-    : "";
+"https://codealpha-language-translator-7dzt.onrender.com";
 
 function fillLanguageDropdowns() {
   languages.forEach((language) => {
-    const sourceOption = new Option(language.name, language.code);
-    const targetOption = new Option(language.name, language.code);
+    sourceLanguage.add(
+      new Option(language.name, language.code)
+    );
 
-    sourceLanguage.add(sourceOption);
     if (language.code !== "auto") {
-      targetLanguage.add(targetOption);
+      targetLanguage.add(
+        new Option(language.name, language.code)
+      );
     }
   });
 
-  sourceLanguage.value = "auto";
-  targetLanguage.value = "en";
+  sourceLanguage.value="auto";
+  targetLanguage.value="te";
 }
 
-function showMessage(text, type = "error") {
-  message.textContent = text;
-  message.className = `message ${type === "success" ? "success" : ""}`;
-  message.style.display = "block";
+function showMessage(text,type="error"){
+  message.textContent=text;
+  message.className=`message ${type==="success"?"success":""}`;
+  message.style.display="block";
 }
 
-function clearMessage() {
-  message.textContent = "";
-  message.style.display = "none";
+function clearMessage(){
+  message.style.display="none";
 }
 
-function updateCharCount() {
-  charCount.textContent = `${inputText.value.length} / ${inputText.maxLength}`;
+function updateCharCount(){
+  charCount.textContent=
+  `${inputText.value.length} / ${inputText.maxLength}`;
 }
 
-function setOutputBadge(text) {
-  outputBadge.textContent = text;
+function setOutputBadge(text){
+  outputBadge.textContent=text;
 }
 
-function setLoading(isLoading) {
-  translateButton.disabled = isLoading;
-  swapButton.disabled = isLoading;
-  translateButton.classList.toggle("is-loading", isLoading);
-  translateButton.querySelector(".button-text").textContent = isLoading
-    ? "Forging"
-    : "Forge translation";
-  setOutputBadge(isLoading ? "Working" : outputText.value.trim() ? "Forged" : "Ready");
+function setLoading(state){
+  translateButton.disabled=state;
+
+  translateButton.querySelector(".button-text").textContent=
+  state?"Forging":"Forge Translation";
 }
 
-async function translateText() {
-  const text = inputText.value.trim();
+async function translateText(){
 
-  clearMessage();
+const text=inputText.value.trim();
 
-  if (!text) {
-    showMessage("Please enter text to translate.");
-    inputText.focus();
-    return;
-  }
-
-  setLoading(true);
-  outputText.value = "";
-  setOutputBadge("Working");
-
-  try {
-    const response = await fetch(`${apiBaseUrl}/api/translate`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        text,
-        source: sourceLanguage.value,
-        target: targetLanguage.value
-      })
-    });
-
-    const responseText = await response.text();
-    const result = responseText ? JSON.parse(responseText) : {};
-
-    if (!response.ok || !result.success) {
-      throw new Error(result.message || "Translation failed.");
-    }
-
-    outputText.value = result.data.translatedText;
-    outputText.classList.remove("pulse-output");
-    window.requestAnimationFrame(() => outputText.classList.add("pulse-output"));
-    setOutputBadge("Forged");
-  } catch (error) {
-    setOutputBadge("Check");
-    if (error instanceof SyntaxError) {
-      showMessage("The translation server returned an invalid response. Make sure it is running on http://localhost:5050.");
-    } else {
-      showMessage(error.message || "Unable to translate right now.");
-    }
-  } finally {
-    setLoading(false);
-  }
+if(!text){
+showMessage("Enter text");
+return;
 }
 
-async function copyTranslation() {
-  const translatedText = outputText.value.trim();
+clearMessage();
 
-  clearMessage();
+setLoading(true);
 
-  if (!translatedText) {
-    showMessage("There is no translated text to copy.");
-    return;
-  }
+try{
 
-  try {
-    await navigator.clipboard.writeText(translatedText);
-    showMessage("Translated text copied to clipboard.", "success");
-  } catch (error) {
-    outputText.select();
-    document.execCommand("copy");
-    showMessage("Translated text copied to clipboard.", "success");
-  }
+const response=await fetch(
+`${apiBaseUrl}/api/translate`,
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+text:text,
+
+source:sourceLanguage.value,
+
+target:targetLanguage.value
+
+})
+
+}
+);
+
+const result=await response.json();
+
+if(!response.ok){
+
+throw new Error(
+result.message || "Translation Failed"
+);
+
 }
 
-function swapLanguages() {
-  if (sourceLanguage.value === "auto") {
-    showMessage("Choose a specific source language before swapping.");
-    return;
-  }
+outputText.value=
+result.data.translatedText;
 
-  const previousSource = sourceLanguage.value;
-  sourceLanguage.value = targetLanguage.value;
-  targetLanguage.value = previousSource;
+setOutputBadge("Done");
 
-  const previousInput = inputText.value;
-  inputText.value = outputText.value;
-  outputText.value = previousInput;
-  updateCharCount();
-  setOutputBadge(outputText.value.trim() ? "Swapped" : "Ready");
-  clearMessage();
 }
 
-translateButton.addEventListener("click", translateText);
-copyButton.addEventListener("click", copyTranslation);
-swapButton.addEventListener("click", swapLanguages);
-inputText.addEventListener("input", updateCharCount);
-outputText.addEventListener("animationend", () => {
-  outputText.classList.remove("pulse-output");
-});
+catch(error){
 
-inputText.addEventListener("keydown", (event) => {
-  if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
-    translateText();
-  }
-});
+showMessage(
+error.message || "Failed"
+);
+
+}
+
+finally{
+
+setLoading(false);
+
+}
+
+}
+
+async function copyTranslation(){
+
+if(!outputText.value.trim()){
+
+showMessage("Nothing to copy");
+
+return;
+
+}
+
+await navigator.clipboard.writeText(
+outputText.value
+);
+
+showMessage(
+"Copied",
+"success"
+);
+
+}
+
+function swapLanguages(){
+
+if(sourceLanguage.value==="auto") return;
+
+let temp=sourceLanguage.value;
+
+sourceLanguage.value=
+targetLanguage.value;
+
+targetLanguage.value=temp;
+
+}
+
+translateButton.addEventListener(
+"click",
+translateText
+);
+
+copyButton.addEventListener(
+"click",
+copyTranslation
+);
+
+swapButton.addEventListener(
+"click",
+swapLanguages
+);
+
+inputText.addEventListener(
+"input",
+updateCharCount
+);
 
 fillLanguageDropdowns();
+
 updateCharCount();
