@@ -10,21 +10,33 @@ const frontendPath = path.join(__dirname, "..", "frontend");
 app.use(
   cors({
     origin(origin, callback) {
+
       if (!origin) {
         return callback(null, true);
       }
 
-      const allowedLocalOrigins = /^https?:\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0)(:\d+)?$/;
+      const allowedLocalOrigins =
+        /^https?:\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0)(:\d+)?$/;
 
-      if (allowedLocalOrigins.test(origin) || origin === config.clientUrl) {
+      const allowedOrigins = [
+        "https://ganjikuntasiva123-star.github.io",
+        config.clientUrl
+      ];
+
+      if (
+        allowedLocalOrigins.test(origin) ||
+        allowedOrigins.includes(origin)
+      ) {
         return callback(null, true);
       }
 
       return callback(new Error("Not allowed by CORS."));
     },
+
     credentials: true
   })
 );
+
 app.use(express.json({ limit: "1mb" }));
 app.use(express.static(frontendPath));
 
@@ -45,14 +57,25 @@ app.use((req, res) => {
 });
 
 app.use((error, req, res, next) => {
-  console.error("Translation error:", error.message);
+
+  console.error(
+    "Translation error:",
+    error.message
+  );
 
   res.status(500).json({
     success: false,
-    message: error.message || "Something went wrong while translating."
+    message:
+      error.message ||
+      "Something went wrong while translating."
   });
+
 });
 
 app.listen(config.port, () => {
-  console.log(`Server running at http://localhost:${config.port}`);
+
+  console.log(
+    `Server running at http://localhost:${config.port}`
+  );
+
 });
