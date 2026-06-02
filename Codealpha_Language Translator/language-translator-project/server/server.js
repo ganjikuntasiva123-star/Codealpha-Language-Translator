@@ -1,81 +1,107 @@
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
+
 const config = require("./config/env");
 const translateRoutes = require("./routes/translateRoutes");
 
 const app = express();
-const frontendPath = path.join(__dirname, "..", "frontend");
+
+const frontendPath =
+path.join(__dirname, "..", "frontend");
+
+/* FIXED CORS */
+
+app.use(cors());
 
 app.use(
-  cors({
-    origin(origin, callback) {
-
-      if (!origin) {
-        return callback(null, true);
-      }
-
-      const allowedLocalOrigins =
-        /^https?:\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0)(:\d+)?$/;
-
-      const allowedOrigins = [
-        "https://ganjikuntasiva123-star.github.io",
-        config.clientUrl
-      ];
-
-      if (
-        allowedLocalOrigins.test(origin) ||
-        allowedOrigins.includes(origin)
-      ) {
-        return callback(null, true);
-      }
-
-      return callback(new Error("Not allowed by CORS."));
-    },
-
-    credentials: true
-  })
+express.json({
+limit:"1mb"
+})
 );
 
-app.use(express.json({ limit: "1mb" }));
-app.use(express.static(frontendPath));
+app.use(
+express.static(frontendPath)
+);
 
-app.get("/api/health", (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "Translator API is running."
-  });
-});
+/* HEALTH CHECK */
 
-app.use("/api", translateRoutes);
+app.get(
+"/api/health",
+(req,res)=>{
 
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: "Route not found."
-  });
-});
+res.status(200).json({
 
-app.use((error, req, res, next) => {
+success:true,
 
-  console.error(
-    "Translation error:",
-    error.message
-  );
-
-  res.status(500).json({
-    success: false,
-    message:
-      error.message ||
-      "Something went wrong while translating."
-  });
+message:
+"Translator API is running."
 
 });
 
-app.listen(config.port, () => {
+}
+);
 
-  console.log(
-    `Server running at http://localhost:${config.port}`
-  );
+/* TRANSLATION ROUTES */
+
+app.use(
+"/api",
+translateRoutes
+);
+
+/* 404 */
+
+app.use(
+(req,res)=>{
+
+res.status(404).json({
+
+success:false,
+
+message:
+"Route not found."
 
 });
+
+}
+);
+
+/* ERROR HANDLER */
+
+app.use(
+(error,req,res,next)=>{
+
+console.error(
+"Translation error:",
+error.message
+);
+
+res.status(500).json({
+
+success:false,
+
+message:
+
+error.message ||
+
+"Translation Failed"
+
+});
+
+}
+);
+
+/* START SERVER */
+
+app.listen(
+config.port,
+()=>{
+
+console.log(
+
+`Server running on port ${config.port}`
+
+);
+
+}
+);
