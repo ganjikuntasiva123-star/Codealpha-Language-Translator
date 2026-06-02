@@ -14,83 +14,186 @@ const languages = [
   { code: "zh-CN", name: "Chinese" }
 ];
 
-const sourceLanguage = document.getElementById("sourceLanguage");
-const targetLanguage = document.getElementById("targetLanguage");
-const inputText = document.getElementById("inputText");
-const outputText = document.getElementById("outputText");
-const translateButton = document.getElementById("translateButton");
-const copyButton = document.getElementById("copyButton");
-const swapButton = document.getElementById("swapButton");
-const message = document.getElementById("message");
-const charCount = document.getElementById("charCount");
-const outputBadge = document.getElementById("outputBadge");
+const sourceLanguage =
+document.getElementById("sourceLanguage");
 
-/* UPDATED BACKEND URL */
+const targetLanguage =
+document.getElementById("targetLanguage");
+
+const inputText =
+document.getElementById("inputText");
+
+const outputText =
+document.getElementById("outputText");
+
+const translateButton =
+document.getElementById("translateButton");
+
+const copyButton =
+document.getElementById("copyButton");
+
+const swapButton =
+document.getElementById("swapButton");
+
+const message =
+document.getElementById("message");
+
+const charCount =
+document.getElementById("charCount");
+
+const outputBadge =
+document.getElementById("outputBadge");
+
+
+/* BACKEND URL */
 
 const apiBaseUrl =
 "https://codealpha-language-translator-7dzt.onrender.com";
 
-function fillLanguageDropdowns() {
-  languages.forEach((language) => {
-    sourceLanguage.add(
-      new Option(language.name, language.code)
-    );
 
-    if (language.code !== "auto") {
-      targetLanguage.add(
-        new Option(language.name, language.code)
-      );
-    }
-  });
+/* WAKE UP RENDER */
 
-  sourceLanguage.value="auto";
-  targetLanguage.value="te";
+window.addEventListener(
+"load",
+async()=>{
+
+try{
+
+await fetch(apiBaseUrl);
+
+}catch(e){
+
+console.log("Backend waking");
+
 }
 
-function showMessage(text,type="error"){
-  message.textContent=text;
-  message.className=`message ${type==="success"?"success":""}`;
-  message.style.display="block";
 }
+);
+
+
+function fillLanguageDropdowns(){
+
+languages.forEach(lang=>{
+
+sourceLanguage.add(
+new Option(lang.name,lang.code)
+);
+
+if(lang.code!=="auto"){
+
+targetLanguage.add(
+new Option(lang.name,lang.code)
+);
+
+}
+
+});
+
+sourceLanguage.value="auto";
+
+targetLanguage.value="te";
+
+}
+
+
+function showMessage(
+text,
+type="error"
+){
+
+message.textContent=text;
+
+message.className=
+`message ${type==="success"?"success":""}`;
+
+message.style.display="block";
+
+}
+
 
 function clearMessage(){
-  message.style.display="none";
+
+message.style.display="none";
+
 }
+
 
 function updateCharCount(){
-  charCount.textContent=
-  `${inputText.value.length} / ${inputText.maxLength}`;
+
+charCount.textContent=
+`${inputText.value.length} / ${inputText.maxLength}`;
+
 }
+
 
 function setOutputBadge(text){
-  outputBadge.textContent=text;
+
+outputBadge.textContent=text;
+
 }
+
 
 function setLoading(state){
-  translateButton.disabled=state;
 
-  translateButton.querySelector(".button-text").textContent=
-  state?"Forging":"Forge Translation";
+translateButton.disabled=state;
+
+translateButton.querySelector(
+".button-text"
+).textContent=
+
+state
+?
+"Forging..."
+:
+"Forge Translation";
+
 }
+
 
 async function translateText(){
 
-const text=inputText.value.trim();
+const text=
+inputText.value.trim();
 
 if(!text){
-showMessage("Enter text");
+
+showMessage(
+"Please enter text"
+);
+
 return;
+
 }
 
 clearMessage();
 
 setLoading(true);
 
+setOutputBadge(
+"Translating..."
+);
+
+outputText.value="";
+
+
 try{
 
-const response=await fetch(
+const controller =
+new AbortController();
+
+const timeout =
+setTimeout(
+()=>controller.abort(),
+20000
+);
+
+const response =
+await fetch(
+
 `${apiBaseUrl}/api/translate`,
+
 {
+
 method:"POST",
 
 headers:{
@@ -101,36 +204,73 @@ body:JSON.stringify({
 
 text:text,
 
-source:sourceLanguage.value,
+source:
+sourceLanguage.value,
 
-target:targetLanguage.value
+target:
+targetLanguage.value
 
-})
+}),
+
+signal:
+controller.signal
 
 }
+
 );
 
-const result=await response.json();
+clearTimeout(timeout);
 
 if(!response.ok){
 
 throw new Error(
-result.message || "Translation Failed"
+`Server Error ${response.status}`
 );
 
 }
 
-outputText.value=
-result.data.translatedText;
+const result =
+await response.json();
 
-setOutputBadge("Done");
+outputText.value=
+
+result?.data?.translatedText ||
+
+"No translation returned";
+
+setOutputBadge(
+"Done"
+);
+
+showMessage(
+"Translated Successfully",
+"success"
+);
 
 }
 
 catch(error){
 
+console.log(error);
+
+if(
+error.name==="AbortError"
+){
+
 showMessage(
-error.message || "Failed"
+"Server Timeout. Backend sleeping."
+);
+
+}else{
+
+showMessage(
+"Backend Offline / CORS / Failed Fetch"
+);
+
+}
+
+setOutputBadge(
+"Failed"
 );
 
 }
@@ -143,39 +283,60 @@ setLoading(false);
 
 }
 
+
 async function copyTranslation(){
 
-if(!outputText.value.trim()){
+if(
+!outputText.value.trim()
+){
 
-showMessage("Nothing to copy");
+showMessage(
+"Nothing to copy"
+);
 
 return;
 
 }
+
+try{
 
 await navigator.clipboard.writeText(
 outputText.value
 );
 
 showMessage(
-"Copied",
+"Copied Successfully",
 "success"
+);
+
+}catch{
+
+showMessage(
+"Copy Failed"
 );
 
 }
 
+}
+
+
 function swapLanguages(){
 
-if(sourceLanguage.value==="auto") return;
+if(
+sourceLanguage.value==="auto"
+)return;
 
-let temp=sourceLanguage.value;
+const temp=
+sourceLanguage.value;
 
 sourceLanguage.value=
 targetLanguage.value;
 
-targetLanguage.value=temp;
+targetLanguage.value=
+temp;
 
 }
+
 
 translateButton.addEventListener(
 "click",
