@@ -275,6 +275,12 @@ setOutputBadge(
 
 }
 
+setOutputBadge(
+"Failed"
+);
+
+}
+
 finally{
 
 setLoading(false);
