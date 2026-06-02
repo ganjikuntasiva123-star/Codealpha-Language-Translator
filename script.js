@@ -45,13 +45,9 @@ const outputBadge =
 document.getElementById("outputBadge");
 
 
-/* BACKEND URL */
-
 const apiBaseUrl =
 "https://codealpha-language-translator-7dzt.onrender.com";
 
-
-/* WAKE UP RENDER */
 
 window.addEventListener(
 "load",
@@ -121,6 +117,7 @@ message.style.display="none";
 function updateCharCount(){
 
 charCount.textContent=
+
 `${inputText.value.length} / ${inputText.maxLength}`;
 
 }
@@ -142,9 +139,13 @@ translateButton.querySelector(
 ).textContent=
 
 state
+
 ?
+
 "Forging..."
+
 :
+
 "Forge Translation";
 
 }
@@ -152,7 +153,7 @@ state
 
 async function translateText(){
 
-const text=
+const text =
 inputText.value.trim();
 
 if(!text){
@@ -174,7 +175,6 @@ setOutputBadge(
 );
 
 outputText.value="";
-
 
 try{
 
@@ -232,11 +232,11 @@ throw new Error(
 const result =
 await response.json();
 
-outputText.value=
+outputText.value =
 
 result?.data?.translatedText ||
 
-"No translation returned";
+"No translation";
 
 setOutputBadge(
 "Done"
@@ -258,19 +258,19 @@ error.name==="AbortError"
 ){
 
 showMessage(
-"Server Timeout. Backend sleeping."
-);
-
-}else{
-
-showMessage(
-"Backend Offline / CORS / Failed Fetch"
+"Server Timeout"
 );
 
 }
 
-setOutputBadge(
-"Failed"
+else{
+
+showMessage(
+
+error.message ||
+
+"Translation Failed"
+
 );
 
 }
@@ -315,7 +315,9 @@ showMessage(
 "success"
 );
 
-}catch{
+}
+
+catch{
 
 showMessage(
 "Copy Failed"
